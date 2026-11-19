@@ -41,10 +41,37 @@ async function getRandomQuestion() {
     return rows[0] || null;
 }
 
+async function getQuestionById(id) {
+  const { rows } = await pool.query('SELECT id, answer FROM questions WHERE id = $1', [id]);
+  return rows[0] || null;
+}
+
+async function addQuestion({ topic, question, answer, difficulty }) {
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    await client.query('INSERT INTO topics (name) VALUES ($1) ON CONFLICT (name) DO NOTHING', [topic]);
+    const { rows } = await client.query('SELECT id FROM topics WHERE name = $1', [topic]);
+    await client.query(
+      'INSERT INTO questions (topic_id, question, answer, difficulty) VALUES ($1, $2, $3, $4)',
+      [rows[0].id, question, answer, difficulty]
+    );
+    const updated = await getQuestionsByTopic(topic, {}, client);
+    await client.query('COMMIT');
+    return updated;
+  } catch (err) {
+    await client.query('ROLLBACK');
+    throw err;
+  } finally {
+    client.release();
+  }
+}
 
 module.exports = {
     getTopics,
     topicExists,
     getQuestionsByTopic,
-    getRandomQuestion
+    getRandomQuestion,
+    getQuestionById,
+    addQuestion
 };
