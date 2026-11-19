@@ -1,0 +1,27 @@
+{
+  "dependencies": {
+    "dotenv": "^18.0.10",
+    "express": "^5.3.0",
+    "node": "^27.0.0-alpha.0.1.1",
+    "pg": "^8.23.1"
+  },
+  "name": "csc-372-assignment-6",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js",
+    "seed": "node db/seed.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apetrsondev/CSC-372-Assignment-6.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/apetrsondev/CSC-372-Assignment-6/issues"
+  },
+  "homepage": "https://github.com/apetrsondev/CSC-372-Assignment-6#readme"
+}
