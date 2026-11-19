@@ -39,3 +39,7 @@ Then open http://localhost:3000
 
 | id | topic_id | question | answer | difficulty (CHECK easy/medium/hard) |
 |--|--|--|--|--|
+
+## Render link
+
+https://csc-372-assignment-6.onrender.com/
